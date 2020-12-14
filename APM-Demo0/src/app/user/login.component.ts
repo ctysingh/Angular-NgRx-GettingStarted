@@ -18,7 +18,12 @@ export class LoginComponent implements OnInit {
     private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-
+    this.store.select('users').subscribe(
+      users => {
+        if(users) {
+          this.maskUserName = users.maskUserName;
+        }
+      });
   }
 
   cancel(): void {
