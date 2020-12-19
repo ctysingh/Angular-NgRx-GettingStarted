@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { AuthService } from './auth.service';
+import { State } from './state/user.reducer';
 
 @Component({
   templateUrl: './login.component.html',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   maskUserName: boolean;
 
-  constructor(private store:  Store<any>,
+  constructor(private store:  Store<State>,
     private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {

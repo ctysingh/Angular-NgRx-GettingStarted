@@ -2,7 +2,7 @@ import { createAction, createReducer, on } from "@ngrx/store";
 import * as AppState from "../../state/app.state";
 import { User } from "../user";
 
-export interface state extends AppState.State {
+export interface State extends AppState.State {
   users: UserState;
 }
 
