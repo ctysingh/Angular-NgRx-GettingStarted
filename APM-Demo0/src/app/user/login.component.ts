@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { AuthService } from './auth.service';
-import { State } from './state/user.reducer';
+import { showMaskUsername, State } from './state/user.reducer';
 
 @Component({
   templateUrl: './login.component.html',
@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.store.select('users').subscribe(
-      users => this.maskUserName = users.maskUserName
+    this.store.select(showMaskUsername).subscribe(
+       maskUserName => this.maskUserName = maskUserName
       );
   }
 
@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
     this.store.dispatch(
       { type: '[User] Mask User Name' }
     );
-    //this.maskUserName = !this.maskUserName;
   }
 
   login(loginForm: NgForm): void {
