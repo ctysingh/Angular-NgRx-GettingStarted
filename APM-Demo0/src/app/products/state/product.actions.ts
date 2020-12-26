@@ -18,7 +18,7 @@ export const clearCurrentProduct = createAction(
 '[Product] Clear Current Product'
 );
 
-export const loadProduct = createAction(
+export const loadProducts = createAction(
   '[Product] Load Products'
 );
 
