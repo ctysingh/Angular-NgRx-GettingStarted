@@ -6,7 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 
 import { Product } from '../product';
 
-import { getCurrentProduct, getProducts, getShowProductCode, State } from '../state/product.reducer';
+import { getCurrentProduct, getError, getProducts, getShowProductCode, State } from '../state/product.reducer';
 
 @Component({
   selector: 'pm-product-list',
@@ -15,19 +15,19 @@ import { getCurrentProduct, getProducts, getShowProductCode, State } from '../st
 })
 export class ProductListComponent implements OnInit {
   pageTitle = 'Products';
-  errorMessage: string;
 
   // Used to highlight the selected product in the list
   products$: Observable<Product[]>;
   selectedProduct$: Observable<Product>;
   displayCode$: Observable<boolean>;
+  errorMessage$: Observable<string>;
 
 
   constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
     this.selectedProduct$ =  this.store.select(getCurrentProduct);
-
+    this.errorMessage$ = this.store.select(getError);
     this.products$ = this.store.select(getProducts);
 
     this.store.dispatch(ProductActions.loadProducts());

@@ -3,10 +3,27 @@ import { createFeatureSelector, createReducer,
 import * as AppState from "../../state/app.state";
 import * as ProductActions from "./product.actions";
 import { Product } from "../product";
+import { Action } from "rxjs/internal/scheduler/Action";
+import { act } from "@ngrx/effects";
 
 export interface State extends AppState.State {
   products: ProductState;
 }
+
+export interface ProductState {
+  showProductCode: boolean;
+  currentProduct: Product;
+  products: Product[];
+  error: string;
+}
+
+const initialState: ProductState = {
+  showProductCode: true,
+  currentProduct: null,
+  products: [],
+  error: ''
+}
+
 
 const getProductFeatureState = createFeatureSelector<ProductState>('products');
 
@@ -25,17 +42,10 @@ export const getProducts = createSelector(
   state => state.products
 );
 
-export interface ProductState {
-  showProductCode: boolean;
-  currentProduct: Product;
-  products: Product[];
-}
-
-const initialState: ProductState = {
-  showProductCode: true,
-  currentProduct: null,
-  products: []
-}
+export const getError = createSelector(
+  getProductFeatureState,
+  state => state.error
+)
 
 export const productReducer = createReducer<ProductState>(
   initialState,
@@ -74,7 +84,16 @@ export const productReducer = createReducer<ProductState>(
   on(ProductActions.loadProductSuccess, (state, action): ProductState => {
     return {
       ...state,
-      products: action.products
+      products: action.products,
+      error: ''
+    }
+  }),
+
+  on(ProductActions.loadProductFailure, (state, action): ProductState => {
+    return {
+      ... state,
+      products: [],
+      error: action.error
     }
   })
 );

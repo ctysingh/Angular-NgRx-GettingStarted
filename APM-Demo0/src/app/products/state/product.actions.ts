@@ -29,7 +29,7 @@ export const loadProductSuccess = createAction(
 
 export const loadProductFailure = createAction(
   '[Product] Load Product Failure',
-  props<{'error: string'}>()
+  props<{error: string}>()
 );
 
 
