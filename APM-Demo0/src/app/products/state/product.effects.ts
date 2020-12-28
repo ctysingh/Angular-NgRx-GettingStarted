@@ -35,7 +35,7 @@ export class ProductEffects {
   DeleteProduct$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProductActions.deleteProduct),
-      concatMap(action => this.productService.deleteProduct(action.productId)
+      mergeMap(action => this.productService.deleteProduct(action.productId)
       .pipe(
         map(() => ProductActions.deleteProductSuccess({ productId: action.productId })),
         catchError(error => of(ProductActions.deleteProductFailure({ error })))
