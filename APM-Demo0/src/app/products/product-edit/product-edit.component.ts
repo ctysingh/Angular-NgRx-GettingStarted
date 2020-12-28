@@ -1,8 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Subscription } from 'rxjs';
-
 import { Product } from '../product';
 import { ProductService } from '../product.service';
 import { GenericValidator } from '../../shared/generic-validator';
@@ -140,10 +138,7 @@ export class ProductEditComponent implements OnInit {
             error: err => this.errorMessage = err
           });
         } else {
-          this.productService.updateProduct(product).subscribe({
-            next: p => this.store.dispatch(productActions.setCurrentProduct({currentProductId: product.id})),
-            error: err => this.errorMessage = err
-          });
+          this.store.dispatch(productActions.updateProduct({product}));
         }
       }
     }
