@@ -21,7 +21,7 @@ export class ProductEffects {
     )
   })
 
-  UpdateProduct$ = createEffect(() => {
+  updateProduct$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProductActions.updateProduct),
       concatMap(action => this.productService.updateProduct(action.product)
@@ -32,7 +32,7 @@ export class ProductEffects {
     )
   })
 
-  DeleteProduct$ = createEffect(() => {
+  deleteProduct$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProductActions.deleteProduct),
       mergeMap(action => this.productService.deleteProduct(action.productId)
